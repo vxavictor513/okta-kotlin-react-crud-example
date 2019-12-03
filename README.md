@@ -4,7 +4,7 @@ This example app shows how to create a Kotlin Spring Boot API and CRUD (create, 
 
 Please read [Build a CRUD Application with Kotlin and React](https://<need.a.link>) to see how this app was created.
 
-####^-- TODO: needs a link --^
+#### ^-- TODO: needs a link --^
 
 **Prerequisites:** 
 
@@ -103,7 +103,7 @@ This example uses the following open source libraries:
 
 Please post any questions as comments on the [blog post](https://need.a.link), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if you'd like to create a support ticket.
 
-####^-- TODO: needs a link --^
+#### ^-- TODO: needs a link --^
 
 ## License
 
