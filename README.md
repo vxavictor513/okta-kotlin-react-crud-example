@@ -102,7 +102,7 @@ This example uses the following open source libraries:
 
 It also uses these Okta libraries:
 
-* [Okta Spring Boot Starter#readme](https://github.com/okta/okta-spring-boot)
+* [Okta Spring Boot Starter](https://github.com/okta/okta-spring-boot#readme)
 * [Okta React SDK](https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react#readme)
 
 ## Help
