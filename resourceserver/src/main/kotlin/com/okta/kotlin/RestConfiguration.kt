@@ -1,4 +1,4 @@
-package com.okta.kotlinreact
+package com.okta.kotlin
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration

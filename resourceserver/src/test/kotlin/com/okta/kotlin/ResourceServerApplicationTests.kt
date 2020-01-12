@@ -1,4 +1,4 @@
-package com.okta.kotlinreact
+package com.okta.kotlin
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

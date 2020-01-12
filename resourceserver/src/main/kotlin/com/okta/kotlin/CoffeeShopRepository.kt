@@ -1,4 +1,4 @@
-package com.okta.kotlinreact
+package com.okta.kotlin
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
