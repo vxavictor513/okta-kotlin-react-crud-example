@@ -1,4 +1,4 @@
-package com.okta.kotlinreact
+package com.okta.kotlin
 
 import com.okta.spring.boot.oauth.Okta
 import org.springframework.context.annotation.Configuration
