@@ -50,9 +50,8 @@ class CoffeeShopEdit extends Component {
 
     if (!result.ok) {
       this.setState({errorMessage: `Failed to ${isCreate ? 'create' : 'update'} record: ${result.status} ${result.statusText}`})
-    }
-    else {
-      this.setState({errorMessage:null});
+    } else {
+      this.setState({errorMessage: null});
       this.props.history.push('/coffee-shops');
     }
 
@@ -67,10 +66,10 @@ class CoffeeShopEdit extends Component {
         {this.props.navbar}
         <Container style={{textAlign: 'left'}}>
           {title}
-          { errorMessage ?
+          {errorMessage ?
             <Alert color="warning">
               {errorMessage}
-            </Alert> :null
+            </Alert> : null
           }
           <Form onSubmit={this.handleSubmit}>
             <div className="row">
@@ -94,11 +93,12 @@ class CoffeeShopEdit extends Component {
               <FormGroup className="col-md-4 mb-3">
                 <Label for="priceOfCoffee">Price of Coffee</Label>
                 <Input type="text" name="priceOfCoffee" id="priceOfCoffee" value={item.priceOfCoffee || ''}
-                       onChange={this.handleChange} />
+                       onChange={this.handleChange}/>
               </FormGroup>
               <FormGroup className="col-md-4 mb-3">
                 <Label for="powerAccessible">Power Accessible?</Label>
-                <Input type="select" name="powerAccessible" id="powerAccessible" value={item.powerAccessible ? "true" : "false"}
+                <Input type="select" name="powerAccessible" id="powerAccessible"
+                       value={item.powerAccessible ? 'true' : 'false'}
                        onChange={this.handleChange}>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
@@ -106,7 +106,8 @@ class CoffeeShopEdit extends Component {
               </FormGroup>
               <FormGroup className="col-md-4 mb-3">
                 <Label for="internetReliability">Internet Reliability</Label>
-                <Input type="select" name="internetReliability" id="internetReliability" value={item.internetReliability || '-'}
+                <Input type="select" name="internetReliability" id="internetReliability"
+                       value={item.internetReliability || '-'}
                        onChange={this.handleChange}>
                   <option>1</option>
                   <option>2</option>
