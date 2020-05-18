@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import CoffeeShopsList from './CoffeeShopsList';
 import CoffeeShopEdit from './CoffeeShopEdit';
 import { withAuth } from '@okta/okta-react';
@@ -89,9 +89,9 @@ class App extends Component {
       <Router>
         <Security issuer='https://dev-133320.okta.com/oauth2/default'
                   clientId='0oa2gmq5jhhsMCCd3357'
-                  redirectUri={window.location.origin + '/implicit/callback'}
+                  redirectUri={window.location.origin + '/callback'}
                   pkce={true}>
-          <Route path='/implicit/callback' component={ImplicitCallback} />
+          <Route path='/callback' component={LoginCallback} />
           <AuthWrapper />
         </Security>
       </Router>

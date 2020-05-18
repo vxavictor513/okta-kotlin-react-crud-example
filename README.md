@@ -37,7 +37,7 @@ You will need to create an OIDC Application in Okta to get your values to perfor
 Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don’t have an account) and navigate to **Applications** > **Add Application**. 
 
 1. Click **Single-Page App**, click **Next**, and give the app a name you’ll remember. 
-2. Specify `http://localhost:3000/implicit/callback` as a **Login Redirect URI** and `https://localhost:3000` as a **Logout redirect URI**. 
+2. Specify `http://localhost:3000/callback` as a **Login Redirect URI** and `https://localhost:3000` as a **Logout redirect URI**. 
 3. Specify `http://localhost:3000` as a **Base URI**. 
 4. Click **Done**. 
 
@@ -48,7 +48,7 @@ Set the `issuer` and copy the `clientId` into `resourceserver/src/main/resources
 **NOTE:** The value of `{yourOktaUrl}` should be something like `dev-123456.com`. Make sure you don't include `-admin` in the value!
 
 ```properties
-okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default  
+okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
 okta.oauth2.clientId={yourClientId}
 ```
 
@@ -64,9 +64,9 @@ class App extends Component {
       <Router>
         <Security issuer='https://{yourOktaUrl}/oauth2/default'
                   clientId='{yourClientId}'
-                  redirectUri={window.location.origin + '/implicit/callback'}
+                  redirectUri={window.location.origin + '/callback'}
                   pkce={true}>
-          <Route path='/implicit/callback' component={ImplicitCallback} />
+          <Route path='/callback' component={LoginCallback} />
           <AuthWrapper />
         </Security>
       </Router>
