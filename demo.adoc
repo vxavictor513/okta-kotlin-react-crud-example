@@ -1,0 +1,224 @@
+:experimental:
+// Define unicode for Apple Command key.
+:commandkey: &#8984;
+:toc: macro
+
+== React + Spring Boot with Kotlin Demo Steps
+
+In this demo, I'll show how to build a client and server application using React for the frontend and Kotlin with Spring Boot for the backend.
+
+**Prerequisites:**
+
+* https://adoptopenjdk.net/[Java 11]+
+* https://nodejs.org/[Node 12]+
+* https://yarnpkg.com/lang/en/docs/install/[Yarn]
+* https://httpie.org/doc#installation[HTTPie]
+* An https://developer.okta.com/signup/[Okta Developer Account]
+
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+
+toc::[]
+
+=== Create a Kotlin + Spring Boot App
+
+. Create a `kotlin-react-app` directory for both projects.
+
+// todo: update blog post to use Spring Boot 2.3.0
+. Create a https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.3.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2[new Spring Boot app] with Gradle, Kotlin, Spring MVC, JPA, Rest Repositories, and H2.
+
+. Extract the generated project to `kotlin-react-app/resourceserver`.
+
+. Start your Spring Boot app with `./gradlew bootRun`.
+
+. Verify it works: `http :8080`
+
+. Explain how the `spring-boot-starter-data-rest` starter includes Spring’s auto-magic "hypermedia-based RESTful front end" (as Spring describes it in https://spring.io/guides/gs/accessing-data-rest/[their docs]).
+
+=== Create a Kotlin REST API
+
+. Create a new Kotlin class called `CoffeeShopModel.kt`
++
+[source,kotlin]
+----
+package com.okta.kotlin
+
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+
+@Entity
+data class CoffeeShopModel(
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long = -1,
+    var name: String = "",
+    var address: String = "",
+    var phone: String = "",
+    var priceOfCoffee: Double = 0.0,
+    var powerAccessible: Boolean = true,
+    var internetReliability: Short = 3 // 1-5
+) {}
+----
+
+. Create a Kotlin class called `CoffeeShopRepository.kt` in the same package.
++
+[source,kotlin]
+----
+package com.okta.kotlin
+
+import org.springframework.data.repository.CrudRepository
+import org.springframework.data.rest.core.annotation.RepositoryRestResource
+
+@RepositoryRestResource(collectionResourceRel = "coffeeshops", path = "coffeeshops")
+interface CoffeeShopRepository : CrudRepository <CoffeeShopModel, Long >{
+}
+----
+
+. Add a couple sample coffee shops to `ResourceServerApplication.kt`.
++
+[source,kotlin]
+----
+class ResourceServerApplication  {
+
+  @Bean
+  fun run(repository: CoffeeShopRepository) = ApplicationRunner {
+    repository.save(CoffeeShopModel(
+      name = "Oblique",
+      address = "3039 SE Stark St, Portland, OR 97214",
+      phone = "555-111-4444",
+      priceOfCoffee = 1.50,
+      powerAccessible = true,
+      internetReliability = 5
+    ))
+    repository.save(CoffeeShopModel(
+      name = "Epoch Coffee",
+      address = "221 W N Loop Blvd, Austin, TX 78751",
+      phone = "555-111-2424",
+      priceOfCoffee = 2.50,
+      powerAccessible = true,
+      internetReliability = 3
+    ))
+  }
+
+}
+----
+
+. Restart everything and test your new REST API.
+
+  http :8080/coffeeshops
+
+. Add the `id` field to responses by adding a `RepositoryRestConfigurer` class.
++
+[source,kotlin]
+----
+package com.okta.kotlin
+
+import org.springframework.context.annotation.Configuration
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
+
+@Configuration
+open class RestConfiguration : RepositoryRestConfigurer {
+  override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration?) {
+    config?.exposeIdsFor(CoffeeShopModel::class.java)
+    config?.setBasePath("/api");
+  }
+}
+----
+
+=== Create a React Frontend
+
+. Create a new React app using Create React App
+
+  yarn create react-app client
++
+TIP: If this doesn't work, you can use `npx create-react-app client`
+
+. Add dependencies on Bootstrap, React Router DOM, and Reactstrap
+
+  yarn add bootstrap react-router-dom reactstrap
+
+. Add Bootstrap’s CSS file as an import in `client/src/index.js`s.
+
+  import 'bootstrap/dist/css/bootstrap.min.css';
+
+. Update the `client/src/App.js` file:
++
+[source,jsx]
+----
+import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+  state = {
+    isLoading: true,
+    coffeeShops: []
+  };
+
+  async componentDidMount() {
+    const response = await fetch('/api/coffeeshops');
+    const body = await response.json();
+    this.setState({coffeeShops: body._embedded.coffeeshops, isLoading: false});
+  }
+
+  render() {
+    const {coffeeShops, isLoading} = this.state;
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    return (
+      <div className="App">
+        <header className="App-header">
+          <div className="App-intro">
+            <h2>Coffee Shop List</h2>
+            {coffeeShops.map(coffeeShop =>
+              <div key={coffeeShop.id}>
+                {coffeeShop.name} - {coffeeShop.address}
+              </div>
+            )}
+          </div>
+        </header>
+      </div>
+    );
+  }
+}
+
+export default App;
+----
+
+. Add a proxy to `package.json` to send requests to the backend.
++
+[source,json]
+----
+"proxy": "http://localhost:8080",
+----
+
+. Start your React app using `yarn start`.
+
+=== Build a Full-Featured React UI
+
+==== Add a React Component to Edit with Reactstrap Form Elements
+
+==== Add an Authentication-Aware Service for Server Requests
+
+==== Make Your React App Look Good
+
+=== Secure Your Kotlin + React App
+
+=== Create an OpenID Connect Application
+
+=== Configure the Resource Server for JWT Authentication
+
+=== Add OAuth 2.0 Login to the React Application
+
+=== Test Your Secured Kotlin + React Application
+
+== React + Spring Book + Kotlin is a Killer Combination!
+
+⚡️ Find the code on GitHub: https://github.com/oktadeveloper/okta-kotlin-react-crud-example[@oktadeveloper/okta-kotlin-react-crud-example].
+
+👀 Read the blog post: https://developer.okta.com/blog/2020/01/13/kotlin-react-crud[Build a CRUD Application with Kotlin and React].
+
