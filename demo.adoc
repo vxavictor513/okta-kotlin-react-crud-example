@@ -22,7 +22,6 @@ toc::[]
 === Create a Kotlin + Spring Boot App
 
 . Create a `kotlin-react-app` directory for both projects.
-
 // todo: update blog post to use Spring Boot 2.3.0
 . Create a https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.3.0.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2[new Spring Boot app] with Gradle, Kotlin, Spring MVC, JPA, Rest Repositories, and H2.
 
