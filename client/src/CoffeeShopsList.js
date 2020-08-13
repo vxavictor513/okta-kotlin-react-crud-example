@@ -11,14 +11,14 @@ const CoffeeShop = (props) => (
     <div className="coffeeshop-body">
       <div className="subtitle-container">
         <div>Cost: ${props.priceOfCoffee} / cup</div>
-        <div>Internet Reliability: {props.internetReliability} / 5 </div>
-        <div>{ props.powerAccessible ? "Power Accessible" : "Power NOT Accessible"} </div>
+        <div>Internet Reliability: {props.internetReliability} / 5</div>
+        <div>{props.powerAccessible ? 'Power Accessible' : 'Power NOT Accessible'} </div>
       </div>
       <div>{props.address}</div>
       <div>{props.phone}</div>
     </div>
     <div className="coffeeshop-footer">
-      <Button color="secondary" tag={Link} to={"/coffee-shops/" + props.id}>Edit</Button>
+      <Button color="secondary" tag={Link} to={'/coffee-shops/' + props.id}>Edit</Button>
       <Button color="danger" onClick={() => props.remove(props.id)}>Delete</Button>
     </div>
   </div>
@@ -39,7 +39,6 @@ class CoffeeShopsList extends Component {
   async componentDidMount() {
     this.setState({isLoading: true});
     const response = await this.props.api.getAll();
-    console.log('here')
     if (!response.ok) {
       this.setState({
           errorMessage: `Failed to load coffee shops: ${response.status} ${response.statusText}`,
@@ -49,7 +48,6 @@ class CoffeeShopsList extends Component {
     } else {
       const body = await response.json();
       const coffeeShops = body._embedded.coffeeshops;
-      console.log('coffee', coffeeShops);
       this.setState({
         coffeeShops: coffeeShops,
         isLoading: false,
@@ -82,18 +80,18 @@ class CoffeeShopsList extends Component {
           <h3 className="coffee-shops-title">Coffee Shops</h3>
           <Button color="success" tag={Link} to="/coffee-shops/new">Add New</Button>
         </div>
-        { errorMessage ?
+        {errorMessage ?
           <div className="d-flex flex-row justify-content-center">
-            <Alert color="warning" style={{flex:1, maxWidth:'80%'}}>
+            <Alert color="warning" style={{flex: 1, maxWidth: '80%'}}>
               {errorMessage}
             </Alert>
           </div> : null
         }
         <div className="d-flex flex-row flex-container flex-wrap justify-content-center">
-          { coffeeShops.map( coffeeShop =>
+          {coffeeShops.map(coffeeShop =>
             <CoffeeShop {...coffeeShop} remove={this.remove.bind(this)} key={coffeeShop.id}/>
           )}
-          { !coffeeShops || coffeeShops.length === 0 ? <p>No coffee shops!</p> : null}
+          {!coffeeShops || coffeeShops.length === 0 ? <p>No coffee shops!</p> : null}
         </div>
       </div>
     );

@@ -107,7 +107,7 @@ class ResourceServerApplication  {
 
   http :8080/coffeeshops
 
-. Add the `id` field to responses by adding a `RepositoryRestConfigurer` class. [`coffee-apiconfig`]
+. Add the `id` field to responses by adding a `RestConfiguration` class. [`coffee-apiconfig`]
 +
 [source,kotlin]
 ----

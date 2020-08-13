@@ -14,7 +14,7 @@ class Home extends Component {
       <div className="app">
         {this.props.navbar}
         <Container fluid>
-          { this.props.authenticated ?
+          {this.props.authenticated ?
             <div>
               <p>Welcome, {this.props.user.name}</p>
               <Button color="secondary">
