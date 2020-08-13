@@ -22,7 +22,7 @@ toc::[]
 === Create a Kotlin + Spring Boot App
 
 . Create a `kotlin-react-app` directory for both projects.
-// todo: update blog post to use Spring Boot 2.3.0
+
 . Create a https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.3.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2[new Spring Boot app] with Gradle, Kotlin, Spring MVC, JPA, Rest Repositories, and H2.
 
 . Extract the generated project to `kotlin-react-app/resourceserver`.
@@ -35,7 +35,7 @@ toc::[]
 
 === Create a Kotlin REST API
 
-. Create a new Kotlin class called `CoffeeShopModel.kt`
+. Create a new Kotlin class called `CoffeeShopModel.kt`. [`coffee-shop`]
 +
 [source,kotlin]
 ----
@@ -60,7 +60,7 @@ data class CoffeeShopModel(
 ) {}
 ----
 
-. Create a Kotlin class called `CoffeeShopRepository.kt` in the same package.
+. Create a Kotlin class called `CoffeeShopRepository.kt` in the same package. [`coffee-repo`]
 +
 [source,kotlin]
 ----
@@ -74,7 +74,7 @@ interface CoffeeShopRepository : CrudRepository <CoffeeShopModel, Long >{
 }
 ----
 
-. Add a couple sample coffee shops to `ResourceServerApplication.kt`.
+. Add a couple sample coffee shops to `ResourceServerApplication.kt`. [`coffee-data`]
 +
 [source,kotlin]
 ----
@@ -107,7 +107,7 @@ class ResourceServerApplication  {
 
   http :8080/coffeeshops
 
-. Add the `id` field to responses by adding a `RepositoryRestConfigurer` class.
+. Add the `id` field to responses by adding a `RepositoryRestConfigurer` class. [`coffee-apiconfig`]
 +
 [source,kotlin]
 ----
@@ -126,6 +126,10 @@ open class RestConfiguration : RepositoryRestConfigurer {
 }
 ----
 
+. Restart and show how IDs are now included.
+
+  http :8080/api/coffeeshops
+
 === Create a React Frontend
 
 . Create a new React app using Create React App
@@ -138,12 +142,15 @@ TIP: If this doesn't work, you can use `npx create-react-app client`
 
   yarn add bootstrap react-router-dom reactstrap
 
-. Add Bootstrap’s CSS file as an import in `client/src/index.js`s.
+. Add Bootstrap’s CSS file as an import in `client/src/index.js`.
 
   import 'bootstrap/dist/css/bootstrap.min.css';
 
-. Update the `client/src/App.js` file:
+. Update the `client/src/App.js` file. [`coffee-app`]
 +
+.`client/src/App.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -187,6 +194,7 @@ class App extends Component {
 
 export default App;
 ----
+====
 
 . Add a proxy to `package.json` to send requests to the backend.
 +
@@ -199,8 +207,11 @@ export default App;
 
 === Build a Full-Featured React UI
 
-. Change `src/App.js` to add three routes: a `/` route, a `/coffee-shops` route, and a `/coffee-shops/:id` route for editing and creating new coffee shop entries.
+. Change `src/App.js` to add three routes: a `/` route, a `/coffee-shops` route, and a `/coffee-shops/:id` route for editing and creating new coffee shop entries. [`coffee-routes`]
 +
+.`client/src/App.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -244,9 +255,13 @@ class App extends Component {
 
 export default App;
 ----
+====
 
-. Create `src/Home.js` for a simple home page to display the navigation bar and a button to open the list of coffee shops.
+. Create `src/Home.js` for a simple home page to display the navigation bar, and a button to open the list of coffee shops. [`coffee-home`]
 +
+.`src/Home.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -274,9 +289,13 @@ class Home extends Component {
 
 export default Home;
 ----
+====
 
-. Create a `src/NavBar.js` to display Home and other links.
+. Create a `src/NavBar.js` to display Home and other links. [`coffee-navbar`]
 +
+.`src/NavBar.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -318,9 +337,13 @@ class NavBar extends Component {
 
 export default NavBar;
 ----
+====
 
 . Create `src/CoffeeShopsList.js` to hold the components that display the coffee shops in a responsive, card-style grid layout. [`coffee-list`]
 +
+.`src/CoffeeShopsList.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -427,11 +450,15 @@ class CoffeeShopsList extends Component {
 
 export default CoffeeShopsList;
 ----
+====
 
 ==== Add a React Component to Edit with Reactstrap Form Elements
 
 . Create `src/CoffeeShopEdit.js` to edit and create coffe shops. Notice how it uses Reactstrap form elements and makes some asynchronous calls to the server. [`coffee-edit`]
 +
+.`src/CoffeeShopEdit.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -567,11 +594,15 @@ class CoffeeShopEdit extends Component {
 
 export default withRouter(CoffeeShopEdit);
 ----
+====
 
 ==== Add an Authentication-Aware Service for Server Requests
 
-. Create `src/Api.js` to centralize all of the server request logic.
+. Create `src/Api.js` to centralize all of the server request logic. [`coffee-api`]
 +
+.`src/Api.js`
+[%collapsible]
+====
 [source,js]
 ----
 class Api {
@@ -619,7 +650,7 @@ class Api {
     return await fetch(`${this.BASE_URL}/${item.id}`, {
       method:'PUT',
       headers: this.createHeaders(),
-      body: JSON.stringify(item),
+      body: JSON.stringify(item)
     });
   }
 
@@ -627,18 +658,22 @@ class Api {
     return await fetch(this.BASE_URL, {
       method:'POST',
       headers: this.createHeaders(),
-      body: JSON.stringify(item),
+      body: JSON.stringify(item)
     });
   }
 }
 
 export default Api;
 ----
+====
 
 ==== Make Your React App Look Good
 
-Modify `src/App.css` to have the following rules.
-
+. Modify `src/App.css` to have the following rules.
++
+.`src/App.css`
+[%collapsible]
+====
 [source,css]
 ----
 html, #root {
@@ -726,6 +761,7 @@ a.app-link:hover {
   }
 }
 ----
+====
 
 . Run `yarn start` again if you need to.
 
@@ -744,7 +780,7 @@ a.app-link:hover {
 
 === Configure the Resource Server for JWT Authentication
 
-. Add the Okta Spring Boot starter in `build.gradle.kts`:
+. Add the Okta Spring Boot starter in `resourceserver/build.gradle.kts`:
 +
 [source,kotlin]
 ----
@@ -755,7 +791,7 @@ dependencies {
 }
 ----
 
-. Create a `SecurityConfiguration` class to configure Spring Boot as an OAuth 2.0 resource server.
+. Create a `SecurityConfiguration` class to configure Spring Boot as an OAuth 2.0 resource server. [`coffee-security`]
 +
 [source,kotlin]
 ----
@@ -781,14 +817,28 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 }
 ----
 
+. Add your Okta configuration to `src/main/resources/application.properties` so a valid JWT is required for all requests.
+
+  okta.oauth2.issuer=https://{yourOktaUrl}/oauth2/default
+  okta.oauth2.clientId={yourClientID}
+
+. Stop and restart the resource server.
+
+. Confirm that a JWT is required to access any endpoints.
+
+  http :8080/api/coffeeshops
+
 === Add OAuth 2.0 Login to the React Application
 
 . Add the Okta React SDK.
 
   yarn add @okta/okta-react@3.0.4
 
-. Update `src/App.js` to add authentication logic.
+. Update `src/App.js` to add authentication logic. [`coffee-app-secure`]
 +
+.`src/App.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -894,9 +944,13 @@ class App extends Component {
 
 export default App;
 ----
+====
 
-. Update `src/Home.js`:
+. Update `src/Home.js`: [`coffee-home-secure`]
 +
+.`src/Home.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -937,9 +991,13 @@ class Home extends Component {
 
 export default Home;
 ----
+====
 
-. Update `src/NavBar.js` to add login and logout buttons:
+. Update `src/NavBar.js` to add login and logout buttons: [`coffee-navbar-secure`]
 +
+.`src/NavBar.js`
+[%collapsible]
+====
 [source,jsx]
 ----
 import React, { Component } from 'react';
@@ -991,6 +1049,7 @@ class NavBar extends Component {
 
 export default NavBar;
 ----
+====
 
 === Test Your Secured Kotlin + React Application
 
