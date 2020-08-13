@@ -23,7 +23,7 @@ toc::[]
 
 . Create a `kotlin-react-app` directory for both projects.
 
-. Create a https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.3.2.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2[new Spring Boot app] with Gradle, Kotlin, Spring MVC, JPA, Rest Repositories, and H2.
+. Create a https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.3.3.RELEASE&packaging=jar&jvmVersion=11&groupId=com.okta.kotlin&artifactId=resourceserver&name=ResourceServer&description=rest%20api%20for%20react%20app&packageName=com.okta.kotlin&dependencies=web,data-jpa,data-rest,h2[new Spring Boot app] with Gradle, Kotlin, Spring MVC, JPA, Rest Repositories, and H2.
 
 . Extract the generated project to `kotlin-react-app/resourceserver`.
 
