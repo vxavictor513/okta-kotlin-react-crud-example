@@ -31,7 +31,7 @@ class NavBar extends Component {
           <NavItem>
             <NavLink href="https://github.com/oktadeveloper/okta-kotlin-react-crud-example">GitHub</NavLink>
           </NavItem>
-          { !isAuthenticated ?
+          {!isAuthenticated ?
             <NavItem>
               <Button color="secondary" outline onClick={login}>Login</Button>
             </NavItem> :

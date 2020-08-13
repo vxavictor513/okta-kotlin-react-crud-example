@@ -41,17 +41,17 @@ class Api {
 
   async update(item) {
     return await fetch(`${this.BASE_URL}/${item.id}`, {
-      method:'PUT',
+      method: 'PUT',
       headers: this.createHeaders(),
-      body: JSON.stringify(item),
+      body: JSON.stringify(item)
     });
   }
 
   async create(item) {
     return await fetch(this.BASE_URL, {
-      method:'POST',
+      method: 'POST',
       headers: this.createHeaders(),
-      body: JSON.stringify(item),
+      body: JSON.stringify(item)
     });
   }
 }

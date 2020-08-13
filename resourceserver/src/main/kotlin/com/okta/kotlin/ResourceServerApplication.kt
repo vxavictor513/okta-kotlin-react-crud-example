@@ -27,7 +27,6 @@ class ResourceServerApplication {
                 internetReliability = 3
         ))
     }
-
 }
 
 fun main(args: Array<String>) {
