@@ -98,7 +98,7 @@ class CoffeeShopEdit extends Component {
               <FormGroup className="col-md-4 mb-3">
                 <Label for="powerAccessible">Power Accessible?</Label>
                 <Input type="select" name="powerAccessible" id="powerAccessible"
-                       value={item.powerAccessible ? 'true' : 'false'}
+                       value={item.powerAccessible === 'true' ? 'true' : 'false'}
                        onChange={this.handleChange}>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
