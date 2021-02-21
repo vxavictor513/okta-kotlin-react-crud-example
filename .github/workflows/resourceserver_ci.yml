@@ -19,7 +19,7 @@ jobs:
       - name: gradle bootBuildImage
         run: ./gradlew bootBuildImage --publishImage -PdockerPublishRegistryPassword=${{ secrets.GHCR_TOKEN }}
         working-directory: resourceserver
-  Deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
