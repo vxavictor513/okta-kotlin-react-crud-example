@@ -3,6 +3,8 @@ name: resourceserver_ci
 on:
   push:
     branches: [ master ]
+    paths:
+      - resourceserver/**
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
