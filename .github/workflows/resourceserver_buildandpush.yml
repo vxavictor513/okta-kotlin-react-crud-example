@@ -21,6 +21,5 @@ jobs:
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: bootBuildImage --publishImage -PdockerPublishRegistryPassword=${{ secrets.GHCR_TOKEN }}
+      - name: Run a one-line script
+        run: ./gradlew bootBuildImage --publishImage -PdockerPublishRegistryPassword=${{ secrets.GHCR_TOKEN }}
