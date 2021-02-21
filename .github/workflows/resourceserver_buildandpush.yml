@@ -22,4 +22,6 @@ jobs:
         with:
           java-version: 11
       - name: Run a one-line script
-        run: ./gradlew bootBuildImage --publishImage -PdockerPublishRegistryPassword=${{ secrets.GHCR_TOKEN }}
+        run: |
+          cd resourceserver/
+          ./gradlew bootBuildImage --publishImage -PdockerPublishRegistryPassword=${{ secrets.GHCR_TOKEN }}
