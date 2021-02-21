@@ -1,3 +1,12 @@
+## Building with Paketa Buildpack
+
+```
+yarn build && pack build my-nginx-app --buildpack gcr.io/paketo-buildpacks/nginx
+docker run --tty --env PORT=3000 --publish 3000:3000 my-nginx-app
+```
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

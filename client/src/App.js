@@ -88,8 +88,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Security issuer='https://dev-133320.okta.com/oauth2/default'
-                  clientId='0oa2gmq5jhhsMCCd3357'
+        <Security issuer='https://dev-309053.okta.com/oauth2/default'
+                  clientId='0oa7soygp1YmT7v4g357'
                   redirectUri={window.location.origin + '/callback'}
                   pkce={true}>
           <Route path='/callback' component={LoginCallback}/>
