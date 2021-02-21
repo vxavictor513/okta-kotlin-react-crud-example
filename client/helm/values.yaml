@@ -54,8 +54,9 @@ readinessProbe:
   #timeoutSeconds: 1
 
 # You can specify external properties here.
-# Sample below sets `spring.profiles.active=kubernetes`.
-env: []
+env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: kubernetes
 
 # If your Docker Registry unsecured, use `imagePullSecret` to specify the docker-registry secret name.
 imagePullSecrets:
