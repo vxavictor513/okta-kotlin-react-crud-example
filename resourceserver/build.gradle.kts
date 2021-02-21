@@ -40,3 +40,14 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "11"
     }
 }
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+    docker {
+        publishRegistry {
+            username = "user"
+            password = "secret"
+            url = "https://docker.example.com/v1/"
+            email = "user@example.com"
+        }
+    }
+}
