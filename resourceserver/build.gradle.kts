@@ -1,12 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.springframework.boot") version "2.3.2.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    kotlin("jvm") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
-    kotlin("plugin.jpa") version "1.3.72"
+    id("org.springframework.boot") version "2.4.3"
+    kotlin("jvm") version "1.4.30"
+    kotlin("plugin.spring") version "1.4.30"
+    kotlin("plugin.jpa") version "1.4.30"
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 group = "com.okta.kotlin"
 version = "0.0.1-SNAPSHOT"
@@ -41,13 +43,14 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+val dockerPublishRegistryPassword: String by project
+tasks.getByName<BootBuildImage>("bootBuildImage") {
+    imageName = "ghcr.io/vxavictor513/resourceserver"
     docker {
         publishRegistry {
-            username = "user"
-            password = "secret"
-            url = "https://docker.example.com/v1/"
-            email = "user@example.com"
+            username = "vxavictor513"
+            password = dockerPublishRegistryPassword
+            url = "https://ghcr.io"
         }
     }
 }
