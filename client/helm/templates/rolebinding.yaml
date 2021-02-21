@@ -1,0 +1,18 @@
+{{- if .Values.rbac.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "client.name" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "client.name" . }}
+    helm.sh/chart: {{ include "client.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "client.name" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "client.name" . }}
+{{- end -}}
