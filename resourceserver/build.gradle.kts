@@ -43,7 +43,7 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-val dockerPublishRegistryPassword: String by project
+val dockerPublishRegistryPassword: String? by project
 tasks.getByName<BootBuildImage>("bootBuildImage") {
     imageName = "ghcr.io/vxavictor513/resourceserver"
     docker {
