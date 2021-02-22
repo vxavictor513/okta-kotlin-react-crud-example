@@ -1,4 +1,4 @@
-name: client_ci
+name: client_k8s_ci
 
 on:
 #   push:
