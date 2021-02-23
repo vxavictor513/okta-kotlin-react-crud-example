@@ -9,7 +9,7 @@ class Api {
     'Content-Type': 'application/json'
   };
 
-  BASE_URL = '/api/coffeeshops';
+  BASE_URL = 'https://wl-api.liquiddelivery.net/api/coffeeshops';
 
   createHeaders() {
     return this.authToken ? {
