@@ -37,7 +37,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          command: helm upgrade -i resourceserver ./resourceserver/helm      
+          command: helm upgrade -i resourceserver ./resourceserver/helm --force
       - name: Verify deployment
         uses: qazz92/kubectl@1.0.3
         env:
