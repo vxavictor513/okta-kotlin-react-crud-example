@@ -7,7 +7,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
 @Configuration
 open class RestConfiguration : RepositoryRestConfigurer {
     override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration?) {
-        config?.exposeIdsFor(CoffeeShopModel::class.java)
-        config?.setBasePath("/api");
+        config?.exposeIdsFor(CoffeeShopModel::class.java);
+//        config?.setBasePath("/api");
     }
 }
