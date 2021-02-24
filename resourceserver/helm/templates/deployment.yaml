@@ -18,6 +18,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "resourceserver.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+        timestamp: {{ now | quote }}
 {{- with .Values.pod.annotations }}
       annotations:
 {{- toYaml . | nindent 8 }}
