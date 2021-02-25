@@ -76,6 +76,15 @@ class CoffeeShopsList extends Component {
     return (
       <div>
         {this.props.navbar}
+        <div className="d-flex flex-row justify-content-center">
+          <h3 className="coffee-shops-title">System Details</h3>
+        </div>
+        <div className="d-flex flex-row justify-content-center">
+          <p style={{color:"white"}}>Platform: {navigator.platform}</p>
+        </div>
+        <div className="d-flex flex-row justify-content-center">
+          <p style={{color:"white"}}>AppVersion: {navigator.appVersion}</p>
+        </div>
         <div className="d-flex flex-row justify-content-between p-3">
           <h3 className="coffee-shops-title">Coffee Shops</h3>
           <Button color="success" tag={Link} to="/coffee-shops/new">Add New</Button>
