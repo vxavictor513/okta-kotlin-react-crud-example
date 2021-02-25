@@ -8,15 +8,15 @@ import java.lang.management.ManagementFactory
 @RestController
 class MyController {
 
-    @GetMapping("/v1/trialDetails")
+    @GetMapping("/trialDetails")
     fun getTrialDetails(): TrialDetails {
         return TrialDetails(
             System.getProperty("os.name"),
             System.getProperty("os.arch"),
             System.getProperty("os.version"),
-//            ManagementFactory.getPlatformMXBean(OperatingSystemMXBean::class.java).systemCpuLoad.toBigDecimal(),
-//            ManagementFactory.getPlatformMXBean(OperatingSystemMXBean::class.java).freePhysicalMemorySize.toBigDecimal(),
-//            ManagementFactory.getPlatformMXBean(OperatingSystemMXBean::class.java).totalPhysicalMemorySize.toBigDecimal(),
+            ManagementFactory.getPlatformMXBean(OperatingSystemMXBean::class.java).systemCpuLoad.toBigDecimal(),
+            ManagementFactory.getPlatformMXBean(OperatingSystemMXBean::class.java).freePhysicalMemorySize.toBigDecimal(),
+            ManagementFactory.getPlatformMXBean(OperatingSystemMXBean::class.java).totalPhysicalMemorySize.toBigDecimal(),
         )
     }
 
