@@ -29,6 +29,11 @@ jobs:
         id: buildx
         with:
           install: true
+      - name: yarn build
+        run: |
+          yarn
+          yarn build
+        working-directory: client/
       - name: Create image
         run: |
           pack config default-builder paketobuildpacks/builder:full
