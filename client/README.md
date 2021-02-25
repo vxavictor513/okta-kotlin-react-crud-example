@@ -1,4 +1,4 @@
-## Building with Paketa Buildpack
+## Building with Paketo Buildpack
 
 ```
 yarn build && pack build my-nginx-app --buildpack gcr.io/paketo-buildpacks/nginx

@@ -18,8 +18,9 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "client.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-{{- with .Values.pod.annotations }}
       annotations:
+        timestamp: {{ now | quote }}
+{{- with .Values.pod.annotations }}
 {{- toYaml . | nindent 8 }}
 {{- end }}
     spec:
