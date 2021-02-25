@@ -34,9 +34,9 @@ service:
 pod:
   annotations:
     # If want to disable Prometheus scraping, comment the following annotations.
-    # prometheus.io/scrape: "true"
-    # prometheus.io/port: "8080"
-    # prometheus.io/path: "/actuator/prometheus"
+     prometheus.io/scrape: "true"
+     prometheus.io/port: "8080"
+     prometheus.io/path: "/actuator/prometheus"
 
 # Be mindful about the liveness/readiness probe's initial delay seconds and timeout seconds.
 # It is common for a pod to fail these probes due to long start-up time, or health actuator takes too long to respond.
